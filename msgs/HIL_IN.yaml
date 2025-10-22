@@ -30,3 +30,15 @@ fields:
   rpm_2: int16_t
   rpm_3: int16_t
   rpm_4: int16_t
+  rpm_5: int16_t
+  rpm_6: int16_t
+  rpm_7: int16_t
+  rpm_8: int16_t
+  servo_1: int16_t
+  servo_2: int16_t
+  servo_3: int16_t
+  servo_4: int16_t
+  servo_5: int16_t
+  servo_6: int16_t
+  servo_7: int16_t
+  servo_8: int16_t

@@ -23,3 +23,15 @@ fields:
   set_2: int16_t
   set_3: int16_t
   set_4: int16_t
+  set_5: int16_t
+  set_6: int16_t
+  set_7: int16_t
+  set_8: int16_t
+  servo_1: int16_t
+  servo_2: int16_t
+  servo_3: int16_t
+  servo_4: int16_t
+  servo_5: int16_t
+  servo_6: int16_t
+  servo_7: int16_t
+  servo_8: int16_t
