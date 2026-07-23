@@ -1,4 +1,4 @@
-# Copyright 2024 Till Blaha (Delft University of Technology)
+# Copyright 2026 Till Blaha (Delft University of Technology)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License as published by the Free
@@ -14,21 +14,16 @@
 #
 # If not, see <https://www.gnu.org/licenses/>.
 
-protocol_version: 2.0.0
-global_mode: RXTX
-include_messages:
-  IMU: { id: 1, mode: RXTX }
-  FAKE_GPS: { id: 2, mode: RXTX }
-  EXTERNAL_POSE: { id: 3, mode: RXTX }
-  POS_SETPOINT: { id: 4, mode: RXTX }
-  HIL_IN: { id: 5, mode: RXTX }
-  HIL_OUT: { id: 6, mode: RXTX }
-  VIO_POSE: { id: 7, mode: RXTX }
-  KEYBOARD: { id: 8, mode: RXTX }
-  EKF_INPUTS: { id: 9, mode: RXTX }
-  OFFBOARD_POSE: { id: 10, mode: RXTX }
-  OFFBOARD_POSE_COV: { id: 11, mode: RXTX }
-  MOTOR: { id: 12, mode: RXTX }
-  RC_OVERRIDE: { id: 13, mode: RXTX }
-  PI_STATUS: { id: 14, mode: RXTX }
-  BATTERY: { id: 15, mode: RXTX }
+# supported datatypes
+# (u)int8_t, (u)int16_t, (u)int32_t, (u)int64_t, float, double (double needs to be verified working)
+
+# Stick channel override for indiflight's PI OVERRIDE box mode (rx/pi_override.c).
+# Values follow Betaflight's usual 1000-2000 RC pulse convention, same as rcData -
+# only takes effect on channels enabled in pi_override_channels_mask while the
+# PI OVERRIDE box mode is active on the base receiver.
+fields:
+  time_us: uint32_t
+  roll: uint16_t      # 1000-2000, same convention as rcData
+  pitch: uint16_t
+  yaw: uint16_t
+  throttle: uint16_t
