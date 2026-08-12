@@ -28,7 +28,7 @@ include_messages:
   EKF_INPUTS: { id: 9, mode: RXTX }
   OFFBOARD_POSE: { id: 10, mode: RXTX }
   OFFBOARD_POSE_COV: { id: 11, mode: RXTX }
-  MOTOR: { id: 12, mode: RXTX }
+  AUX: { id: 12, mode: RXTX }
   RC_OVERRIDE: { id: 13, mode: RXTX }
   PI_STATUS: { id: 14, mode: RXTX }
   BATTERY: { id: 15, mode: RXTX }

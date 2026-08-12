@@ -1,4 +1,4 @@
-# Copyright 2023 Till Blaha (Delft University of Technology)
+# Copyright 2026 Delft University of Technology
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License as published by the Free
@@ -17,12 +17,22 @@
 # supported datatypes
 # uint8_t, uint16_t, uint32_t, uint64_t, float, double
 
-# Measured motor angular speeds (rad/s), indexed in Betaflight's own mixer output
-# order (mixerQuadX[] = [RR, FR, RL, FL]) - NOT the indi_controller/simulator
-# convention ([FR, RR, RL, FL]) used elsewhere in the wider workspace.
+# raw rcData[] values of all aux channels (i.e. excluding roll/pitch/yaw/throttle),
+# range [1000;2000], see MAX_AUX_CHANNEL_COUNT in rx/rx.h
+# 4 + 2 * 14 = 32 bytes per message
 fields:
   time_us: uint32_t
-  omega0: float
-  omega1: float
-  omega2: float
-  omega3: float
+  aux_1: int16_t
+  aux_2: int16_t
+  aux_3: int16_t
+  aux_4: int16_t
+  aux_5: int16_t
+  aux_6: int16_t
+  aux_7: int16_t
+  aux_8: int16_t
+  aux_9: int16_t
+  aux_10: int16_t
+  aux_11: int16_t
+  aux_12: int16_t
+  aux_13: int16_t
+  aux_14: int16_t

@@ -27,6 +27,8 @@ fields:
   q: int16_t  # FRD body frame
   r: int16_t
   omega1: uint16_t  # rotor speed in rad/s, no conversion necessary
-  omega2: uint16_t  # betaflight numbering (1: RR, 2: FR, 3: RL, 4: FL)
+  omega2: uint16_t  # betaflight numbering (1: RR, 2: FR, 3: RL, 4: FL, 5: MR, 6: ML)
   omega3: uint16_t
   omega4: uint16_t
+  omega5: uint16_t
+  omega6: uint16_t
