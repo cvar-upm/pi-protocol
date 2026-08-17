@@ -20,7 +20,7 @@ include_messages:
   IMU: { id: 1, mode: RXTX }
   FAKE_GPS: { id: 2, mode: RXTX }
   EXTERNAL_POSE: { id: 3, mode: RXTX }
-  POS_SETPOINT: { id: 4, mode: RXTX }
+  SETPOINT: { id: 4, mode: RXTX }
   HIL_IN: { id: 5, mode: RXTX }
   HIL_OUT: { id: 6, mode: RXTX }
   VIO_POSE: { id: 7, mode: RXTX }
@@ -28,7 +28,8 @@ include_messages:
   EKF_INPUTS: { id: 9, mode: RXTX }
   OFFBOARD_POSE: { id: 10, mode: RXTX }
   OFFBOARD_POSE_COV: { id: 11, mode: RXTX }
-  AUX: { id: 12, mode: RXTX }
+  RC: { id: 12, mode: RXTX }
   RC_OVERRIDE: { id: 13, mode: RXTX }
   PI_STATUS: { id: 14, mode: RXTX }
   BATTERY: { id: 15, mode: RXTX }
+  TIMESYNC: { id: 16, mode: RXTX }

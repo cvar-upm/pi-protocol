@@ -1,4 +1,4 @@
-# Copyright 2026 Delft University of Technology
+# Copyright 2026 Universidad Politécnica de Madrid
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License as published by the Free
@@ -17,22 +17,13 @@
 # supported datatypes
 # uint8_t, uint16_t, uint32_t, uint64_t, float, double
 
-# raw rcData[] values of all aux channels (i.e. excluding roll/pitch/yaw/throttle),
-# range [1000;2000], see MAX_AUX_CHANNEL_COUNT in rx/rx.h
-# 4 + 2 * 14 = 32 bytes per message
+# Round-trip clock exchange, same shape as MAVLink's TIMESYNC: the host fills
+# seq and host_ns and sends with fc_time_us = 0, the FC echoes both back with
+# fc_time_us set to its micros() at handling time. That gives the host the
+# offset, from the FC stamp against the midpoint of its own send and receive
+# instants, and the round trip, from their difference.
+# 4 + 8 + 4 = 16 bytes per message
 fields:
-  time_us: uint32_t
-  aux_1: int16_t
-  aux_2: int16_t
-  aux_3: int16_t
-  aux_4: int16_t
-  aux_5: int16_t
-  aux_6: int16_t
-  aux_7: int16_t
-  aux_8: int16_t
-  aux_9: int16_t
-  aux_10: int16_t
-  aux_11: int16_t
-  aux_12: int16_t
-  aux_13: int16_t
-  aux_14: int16_t
+  seq: uint32_t         # echoed verbatim, pairs a reply with its request
+  host_ns: uint64_t     # host clock when the request was sent, echoed verbatim
+  fc_time_us: uint32_t  # FC micros() when the exchange was handled, 0 in a request

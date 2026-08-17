@@ -18,9 +18,29 @@
 # (u)int8_t, (u)int16_t, (u)int32_t, (u)int64_t, float, double (double needs to be verified working)
 
 # see src/main/io/gps.h
+# Pose from outside the FC - motion capture, or any other external reference -
+# feeding the onboard estimator.
+#
+# mode says which of the three quantities below to use, and how much to trust
+# the position. A sample with no quantity enabled does nothing, and the
+# estimator stops being corrected, so 0 is not a usable value.
+#
+#   bit 0  use ned_x/y/z as a position measurement
+#   bit 1  use body_q* as an attitude measurement
+#   bit 2  use ned_xd/yd/zd. Not a measurement: the estimator has no velocity
+#          rows, so this writes the velocity state directly after the update
+#   bit 3  0: fuse the position with the configured ekf_meas_noise_position
+#          1: fuse it with a far smaller covariance, so the result sits
+#             essentially on the measurement. Corrections still reach velocity
+#             and the sensor biases through the covariance cross-terms, which a
+#             direct write of the state would not
+#   bits 4-7  reserved, sent as 0
+#
+# The estimator initialises from the position, so bit 0 has to be set at least
+# until it has converged.
 fields:
   time_us: uint32_t
-  # LLH lication in NEU axis system 
+  # LLH lication in NEU axis system
   ned_x: float # pos
   ned_y: float
   ned_z: float
@@ -31,3 +51,4 @@ fields:
   body_qx: float
   body_qy: float
   body_qz: float
+  mode: uint8_t
