@@ -17,8 +17,24 @@
 # supported datatypes
 # uint8_t, uint16_t, uint32_t, uint64_t, float, double
 
-# Low-rate FC state summary, so a companion computer can tell whether the FC is
-# armed and whether it is actually obeying PI OVERRIDE, without needing MSP.
+# Low-rate FC state summary, so a companion computer can tell what the FC is
+# doing without needing MSP. The length never changes, so a companion can still
+# read this after a message-table mismatch has broken everything else.
+#
+# flags, one bit each, 1 unless stated otherwise:
+#   bit 0  ARMED               motors are armed
+#   bit 1  PI_OVERRIDE_ACTIVE  the pilot has the PI OVERRIDE switch on, so the
+#                              FC substitutes the RC_OVERRIDE sticks and acro
+#                              and attitude are available
+#   bit 2  RX_LINK_VALID       the receiver is delivering the four flight
+#                              channels within their valid pulse range. 0 means
+#                              no usable radio link
+#   bit 3  EKF_CONVERGED       the estimator has been healthy long enough to be
+#                              trusted. Position control cannot engage until this
+#                              is 1
+#   bit 4  POS_CTL_ACTIVE      the FC is in position mode, so it is tracking the
+#                              POS_SETPOINT messages it receives
+#   bits 5-7                   reserved, sent as 0
 fields:
   time_us: uint32_t
-  flags: uint8_t   # bit0 ARMED, bit1 PI_OVERRIDE_ACTIVE, bit2 RX_LINK_VALID
+  flags: uint8_t

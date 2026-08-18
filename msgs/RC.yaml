@@ -1,0 +1,47 @@
+# Copyright 2026 Delft University of Technology
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with this program.
+#
+# If not, see <https://www.gnu.org/licenses/>.
+
+# supported datatypes
+# uint8_t, uint16_t, uint32_t, uint64_t, float, double
+
+# Every receiver channel as the FC reads it, for debugging what the pilot is
+# doing. Read straight from the RX driver, so the sticks are the human pilot
+# even while PI OVERRIDE is substituting them downstream (rx/rx.c
+# readRxChannelsApplyRanges), and before the per-channel calibration, so the
+# range is the receiver's native one (988-2012 for CRSF).
+#
+# Wire order, not the canonical ROLL/PITCH/YAW/THROTTLE one: which channel
+# carries what is up to rxConfig()->rcmap, so the mapping belongs to whoever
+# reads this. Channels the receiver does not provide are sent as 0.
+# 4 + 2 * 16 = 36 bytes per message
+fields:
+  time_us: uint32_t
+  channel_1: int16_t
+  channel_2: int16_t
+  channel_3: int16_t
+  channel_4: int16_t
+  channel_5: int16_t
+  channel_6: int16_t
+  channel_7: int16_t
+  channel_8: int16_t
+  channel_9: int16_t
+  channel_10: int16_t
+  channel_11: int16_t
+  channel_12: int16_t
+  channel_13: int16_t
+  channel_14: int16_t
+  channel_15: int16_t
+  channel_16: int16_t

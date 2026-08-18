@@ -1,0 +1,56 @@
+# Copyright 2023 Till Blaha (Delft University of Technology)
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with this program.
+#
+# If not, see <https://www.gnu.org/licenses/>.
+
+# supported datatypes
+# (u)int8_t, (u)int16_t, (u)int32_t, (u)int64_t, float, double
+
+# Every offboard reference the companion computer can command, in SI units and
+# radians. Unlike RC_OVERRIDE, which simulates the pilot's sticks and inherits
+# his rate curve and throttle scaling, the numbers here reach the controller
+# unchanged.
+#
+# The two vectors and the scalar carry different quantities depending on mode,
+# so that the message stays small enough to send at full rate. A field is only
+# meaningful in the modes listed for it:
+#
+#   mode        vec_a            vec_b                 scalar_c
+#   0 POSITION  position [m]     speed limit [m/s]     yaw
+#   1 VELOCITY  unused           velocity [m/s]        yaw
+#   2 TRAJECTORY position [m]    velocity feedforward  yaw
+#   3 ATTITUDE  quaternion x,y,z specific force [m/s2] quaternion w
+#   4 ACRO      body rates [rad/s] specific force [m/s2] unused
+#
+# mode is a bitfield:
+#   bits 2-0  which of the five above, as a value
+#   bit 3     scalar_c is a yaw rate [rad/s] rather than a yaw angle [rad].
+#             Only for modes 0-2: ATTITUDE carries yaw in the quaternion and
+#             ACRO in vec_a
+#   bits 7-4  reserved, sent as 0
+#
+# Specific force is what the INDI controller consumes directly, so no mass is
+# needed anywhere. Only its z component matters on a conventional multirotor;
+# a fully actuated airframe can use all three.
+# 4 + 2 * 12 + 4 + 1 = 33 bytes per message
+fields:
+  time_us: uint32_t
+  vec_a_x: float
+  vec_a_y: float
+  vec_a_z: float
+  vec_b_x: float
+  vec_b_y: float
+  vec_b_z: float
+  scalar_c: float
+  mode: uint8_t
