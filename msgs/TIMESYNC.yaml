@@ -1,0 +1,28 @@
+# Copyright 2026 Till Blaha (Delft University of Technology)
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with this program.
+#
+# If not, see <https://www.gnu.org/licenses/>.
+
+# supported datatypes
+# uint8_t, uint16_t, uint32_t, uint64_t, float, double
+
+# Round-trip clock exchange, same shape as MAVLink's TIMESYNC: the host fills
+# seq and host_ns and sends with fc_time_us = 0, the FC echoes both back with
+# fc_time_us set to its micros() at handling time. That gives the host the
+# offset, from the FC stamp against the midpoint of its own send and receive
+# instants, and the round trip, from their difference.
+fields:
+  seq: uint32_t         # echoed verbatim, pairs a reply with its request
+  host_ns: uint64_t     # host clock when the request was sent, echoed verbatim
+  fc_time_us: uint32_t  # FC micros() when the exchange was handled, 0 in a request

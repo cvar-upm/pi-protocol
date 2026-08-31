@@ -32,3 +32,4 @@ include_messages:
   RC_OVERRIDE: { id: 13, mode: RXTX }
   PI_STATUS: { id: 14, mode: RXTX }
   BATTERY: { id: 15, mode: RXTX }
+  TIMESYNC: { id: 16, mode: RXTX }
