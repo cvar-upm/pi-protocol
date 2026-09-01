@@ -1,0 +1,40 @@
+# Copyright 2026 Universidad Politécnica de Madrid
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with this program.
+#
+# If not, see <https://www.gnu.org/licenses/>.
+
+# supported datatypes
+# uint8_t, uint16_t, uint32_t, uint64_t, float, double
+
+# Paired motor speed and commanded force fraction, up to 4 motors (quadrotor-sized).
+# Sourced directly from indiflight's flight/indi.c indiRun struct -- requires USE_INDI.
+#
+# TIMING: omega and u are NOT computed from each other. u (the command) is computed by
+# getMotorCommands() using the omega value as it stood BEFORE that same control tick's
+# indiUpdateActuatorState() call overwrites it with a fresh DSHOT-telemetry reading. So
+# the omega value in a given message is one control tick NEWER than the omega that
+# actually informed the u value reported alongside it -- i.e. u corresponds to
+# omega_(k-1), not omega_k, where k is this message's omega. This matches indiflight's
+# own blackbox "u"+"omega" pairing (same relationship, not simultaneous).
+# 4 + 2*4 + 2*4 = 20 bytes per message
+fields:
+  time_us: uint32_t  # FC micros() at the moment omega1..4 were sampled (i.e. time k)
+  omega1: uint16_t    # rotor speed in rad/s, no conversion necessary
+  omega2: uint16_t
+  omega3: uint16_t
+  omega4: uint16_t
+  u1: int16_t         # control variable proportional to output force, on [-1,1] (motors: [0,1]),
+  u2: int16_t          # scaled by INT16_MAX: physical value = (this int16_t) / 32767.0
+  u3: int16_t
+  u4: int16_t

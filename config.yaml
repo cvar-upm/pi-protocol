@@ -33,3 +33,4 @@ include_messages:
   PI_STATUS: { id: 14, mode: RXTX }
   BATTERY: { id: 15, mode: RXTX }
   TIMESYNC: { id: 16, mode: RXTX }
+  MOTOR_STATE: { id: 17, mode: RXTX }
