@@ -34,7 +34,10 @@
 #                              is 1
 #   bit 4  OFFBOARD_CTL_ACTIVE the FC is in position mode, so it is tracking the
 #                              POS_SETPOINT messages it receives
-#   bits 5-7                   reserved, sent as 0
+#   bit 5  EMERG_HOVER         the FC is in emergency hover, entered by a HOLD
+#                              setpoint or the pilot's EMERG HOVER switch, and
+#                              ignores this link's setpoints until disarmed
+#   bits 6-7                   reserved, sent as 0
 fields:
   time_us: uint32_t
   flags: uint8_t
