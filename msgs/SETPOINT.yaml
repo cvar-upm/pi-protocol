@@ -32,9 +32,13 @@
 #   2 TRAJECTORY position [m]    velocity feedforward  yaw
 #   3 ATTITUDE  quaternion x,y,z specific force [m/s2] quaternion w
 #   4 ACRO      body rates [rad/s] specific force [m/s2] unused
+#   5 HOLD      unused           unused                unused
+#
+# HOLD is an emergency hover: the FC brakes, holds where it stopped and ignores
+# every SETPOINT and RC_OVERRIDE until it is disarmed.
 #
 # mode is a bitfield:
-#   bits 2-0  which of the five above, as a value
+#   bits 2-0  which of the six above, as a value
 #   bit 3     scalar_c is a yaw rate [rad/s] rather than a yaw angle [rad].
 #             Only for modes 0-2: ATTITUDE carries yaw in the quaternion and
 #             ACRO in vec_a
