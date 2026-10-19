@@ -37,7 +37,11 @@
 #   bit 5  EMERG_HOVER         the FC is in emergency hover, entered by a HOLD
 #                              setpoint or the pilot's EMERG HOVER switch, and
 #                              ignores this link's setpoints until disarmed
-#   bits 6-7                   reserved, sent as 0
+#   bit 6  VTX_OFF             the FC is commanding the VTX to its 0mW power
+#                              level, because VTX_CONTROL's lease is not
+#                              holding it on (see VTX_CONTROL.yaml). 0 also when
+#                              vtx_pi_control is OFF or there is no MSP VTX
+#   bit 7                      reserved, sent as 0
 fields:
   time_us: uint32_t
   flags: uint8_t

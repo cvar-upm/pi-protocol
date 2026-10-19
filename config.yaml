@@ -34,3 +34,4 @@ include_messages:
   BATTERY: { id: 15, mode: RXTX }
   TIMESYNC: { id: 16, mode: RXTX }
   MOTOR_STATE: { id: 17, mode: RXTX }
+  VTX_CONTROL: { id: 18, mode: RXTX }
