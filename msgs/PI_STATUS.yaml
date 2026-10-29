@@ -37,7 +37,10 @@
 #   bit 5  EMERG_HOVER         the FC is in emergency hover, entered by a HOLD
 #                              setpoint or the pilot's EMERG HOVER switch, and
 #                              ignores this link's setpoints until disarmed
-#   bits 6-7                   reserved, sent as 0
+#   bit 6  EMERG_LAND          the emergency is landing: a HOLD_LAND setpoint
+#                              asked for it, and the FC disarms on touchdown.
+#                              Only set together with EMERG_HOVER
+#   bit 7                      reserved, sent as 0
 fields:
   time_us: uint32_t
   flags: uint8_t
